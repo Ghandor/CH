@@ -1,0 +1,332 @@
+/**
+ * Rural Theme - Global styles and overrides
+ *
+ * webtrees-MyArtJaub
+ * Copyright (C) 2015-2024 Jonathan Jaubart
+ * 
+ * Based on webtrees: online genealogy
+ * Copyright (C) 2020 webtrees development team
+ *  
+ * This file is part of webtrees-MyArtJaub
+ *  
+ * webtrees-MyArtJaub is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * webtrees-MyArtJaub is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with webtrees-MyArtJaub. If not, see <https://www.gnu.org/licenses/>.
+ */
+ 
+html {
+    font-size: $maj-base-font-size;
+}
+
+::backdrop, .wt-global {
+    background: #fff linear-gradient(to top, #fff, $maj-c-background) repeat-x;
+
+}
+
+/* Colors for chart boxes, etc. */
+:root {
+    --chart-line-radius: 0.5rem;
+    --chart-line: solid #808080 thin;
+    --chart-values-default: #b9afa4;
+    --chart-values-high: #584937;
+    --chart-values-low: #e9e2db;
+    --chart-values-avg: #584937;
+    --link-color-hover: #{$maj-c-theme-dark};
+    --link-color: #{$maj-c-theme-darker};
+    --link-decoration-hover: none;
+    --link-decoration: none;
+    --sex-f-bg: #ede1e8;
+    --sex-f-fg: #ce5380;
+    --sex-f-chart: #ede1e8;
+    --sex-f-chart-dark: #beb4ba;
+    --sex-m-bg: #d2e2ec;
+    --sex-m-fg: #468bb6;
+    --sex-m-chart: #d2e2ec;
+    --sex-m-chart-dark: #a8b5bd;
+    --sex-u-bg: #fff;
+    --sex-u-fg: #808080;
+    --sex-u-chart: #ebebeb;
+    // Yellow tones for sex X
+    --sex-x-bg: #fae8c7;
+    --sex-x-fg: #f4ab62;
+    // Purple tones for sex X
+    //--sex-x-bg: #e0e2ea;
+    //--sex-x-fg: #8a6f9b;
+}
+
+@include maj-cssvars((
+    c-theme-darker: $maj-c-theme-darker,
+    c-theme-dark: $maj-c-theme-dark,
+    c-theme-medium: $maj-c-theme-medium,
+    c-theme-light: $maj-c-theme-light,
+    c-theme-lighter: $maj-c-theme-lighter,
+));
+
+
+.maj-c-theme {
+    &-darker { background-color: $maj-c-theme-darker; }
+    &-dark { background-color: $maj-c-theme-dark; }
+    &-medium { background-color: $maj-c-theme-medium; }
+    &-light { background-color: $maj-c-theme-light; }
+    &-lighter { background-color: $maj-c-theme-lighter; }
+}
+
+
+/*
+ * Any element that is loaded dynamically has the class wt-ajax-load.
+ * We can provide a "loading" placeholder for empty elements with this class.
+ */
+.wt-ajax-load:empty {
+    background: url($maj-webtrees-dir + '/images/loading-32x32.gif') no-repeat 50% 50%;
+    height: 32px;
+}
+
+
+/*
+ * Html elements
+ */
+
+table {
+    border-collapse: separate;
+}
+
+h3 {
+    color: $maj-c-theme-darker;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+h4 {
+    color: $maj-c-theme-darker;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+/* 
+ * Bootstrap overrides 
+ */
+
+.alert {	
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.btn-secondary,
+.btn-outline-secondary {
+    @extend .maj-secondary-button-theme-lighter;
+}
+
+.dropdown {
+    &-menu {
+        max-height: 100vh;
+        overflow-x: hidden;
+
+        .dropdown-item {
+            box-sizing: content-box;
+
+            &.active {
+                &:hover,
+                &:focus {
+                    background-color: $maj-c-theme-medium;
+                    color: $primary;
+                }
+            }
+
+            &.disabled {
+                display: none;
+            }
+        }
+    }
+
+    &-divider {
+        border-top-color: $maj-c-theme-medium;
+
+        & + .disabled + & {
+            display: none;
+        }
+    }
+}
+
+.input-group {
+    &-text {
+        *[class^='wt-icon-'] { color: #fff; }
+    }
+}
+
+
+input,
+select,
+.form-select {
+    background-color: $maj-c-theme-lighter;
+    border: solid 1px $maj-c-theme-medium;
+}
+
+.pagination {
+    .page-item {
+        .page-link, &.disabled .page-link {
+            background-image: $maj-bg-theme-medium-background-image;
+        }
+        
+        &.active .page-link {
+            background-image: none;
+        }
+        
+        &.disabled {
+            opacity: 0.5;
+        }
+    }
+}
+
+.btn-close {
+    &:hover {
+        background-color: $maj-c-theme-medium;
+        background-image: escape-svg($btn-close-bg);
+    }
+}
+
+.btn-link {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+	
+    &:hover {
+        color: $maj-c-theme-dark;
+        text-decoration: unset;
+    }
+}
+
+.accordion-button,
+.accordion-button:not(.collapsed) {
+    background-color: $maj-c-theme-light;
+}
+
+/* Introduces issues in webtrees 2.0.9, but not sure why it was implemented in the first place
+.container-fluid {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+*/
+
+/**
+ * Tom-select overrides
+ */
+
+.ts-dropdown {
+    background-color: $maj-c-theme-lighter;
+    
+    .active {
+        background-color: $maj-c-theme-light;
+    }
+    
+    .option {
+        &:hover {
+            background-color: $maj-c-theme-medium;
+            color: unset;
+        }
+    }
+    
+    .spinner::after {
+        border-color: $maj-c-theme-medium transparent;
+    }
+}
+
+/**
+ * Twitter Typeahead
+ */
+span.twitter-typeahead {
+    .tt-menu {
+        background-color: $maj-c-theme-lighter;
+    }
+    
+    .tt-suggestion.tt-cursor {
+        &,
+        &:hover {
+            background-color: $maj-c-theme-medium;
+            color: unset;
+        }
+    }
+}
+
+/*
+ * Common classes
+ */
+
+.center {
+    text-align: center;
+}
+
+.error {
+    color: #d00;
+    font-weight: bold;
+}
+
+.largeError {
+    color: #d00;
+    font-size: large;
+    font-weight: bold;
+}
+
+.warning {
+    color: #f00;
+    font-weight: bold;
+}
+
+.indent {
+    padding-left: 1rem;
+}
+
+.maj-font-color-brown {
+    @include maj-font-color($maj-c-theme-dark, $maj-c-theme-medium);
+}
+
+.maj-font-color-blue {
+    @include maj-font-color($maj-c-bluegray, $maj-c-bluegray-dark);
+}
+
+.maj-content-tabs {
+    @include border-radius($border-radius);
+	
+    background-color: $maj-c-theme-lighter;
+    border: solid $maj-c-theme-medium $nav-tabs-border-width;
+    padding-top: 0.3rem;
+
+    .nav-tabs {
+        @include border-radius($border-radius);		
+        background-color: $maj-c-theme-light;
+        border: solid $maj-c-theme-medium $nav-tabs-border-width;
+        margin-left: 0.3rem;
+        margin-right: 0.3rem;
+        padding: 0.3rem 0.3rem 0;
+    }
+	
+    .tab-content {
+        border-style: none;
+    }
+}
+
+.maj-secondary-button-theme-lighter {
+    @extend .btn;
+    @include button-variant($maj-c-theme-lighter, $maj-c-theme-medium, $active-background: $primary);
+		
+    color: $primary;
+
+    &.btn {
+        background: $maj-c-theme-lighter $maj-bg-theme-medium-background-image repeat-x;
+    }
+	
+    &:hover {
+        color: $primary;
+    }
+	
+    .active {
+        background-image: none;
+    }
+}
+
+

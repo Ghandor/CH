@@ -1,0 +1,14 @@
+/* Zentrales Stylesheet */
+
+/* CSS Fundament für alle Übungsdateien */
+@import url('normalize.css');
+@import url('accessibility.css');
+@import url('layout.css');
+@import url('navigation.css');
+@import url('typography.css');
+@import url('pagehead.css');
+@import url('sidebar-switcher.css');
+@import url('card-styles.css');
+
+/* Google Schriften*/
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Dancing+Script:wght@400..700&family=Protest+Strike&display=swap');

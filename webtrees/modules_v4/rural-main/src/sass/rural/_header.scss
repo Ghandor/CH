@@ -1,0 +1,233 @@
+
+/**
+ * Rural Theme - Page header
+ *
+ * webtrees-MyArtJaub
+ * Copyright (C) 2015-2024 Jonathan Jaubart
+ * 
+ * Based on webtrees: online genealogy
+ * Copyright (C) 2020 webtrees development team
+ *  
+ * This file is part of webtrees-MyArtJaub
+ *  
+ * webtrees-MyArtJaub is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * webtrees-MyArtJaub is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with webtrees-MyArtJaub. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
+ * Pages header has the following high-level structure:
+ *
+ * wt-header-wrapper
+ * +---wt-header-container
+ *     +---wt-header-content
+ *         +---wt-accessibility-links
+ *         +---wt-site-logo
+ *         +---wt-site-title
+ *         +---wt-header-search
+ *         |   +---wt-header-search-form
+ *         |       +---wt-header-search-field
+ *         |       +---wt-header-search-button
+ *         +---wt-secondary-navigation
+ *         |   +---wt-user-menu
+ *         +---wt-primary-navigation
+ *             +---wt-genealogy-menu
+ */
+
+.maj-header-part {
+
+    // Fix for Edge < 79 not supporting max-content.
+    white-space: nowrap;
+    width: auto;
+
+    @include media-breakpoint-up(md) {
+        min-height: math.div($maj-header-height, 3);
+    }	
+}
+
+.wt-header-wrapper {
+	
+    color: $maj-c-theme-lighter;
+	
+    a {
+        font-weight: bold;
+    }
+			
+    .wt-header-container {
+        @include maj-base-layout-col;
+    }
+	
+    .wt-header-content {		
+        @extend .flex-fill;
+		
+        flex-direction: column;
+        flex-wrap: nowrap;
+
+        // Issue #5: The min-height cannot be handled only by the header parts, as some of them may be missing.
+        min-height: $maj-header-height; 
+    }
+	
+    .wt-site-logo {
+        @extend .d-none;
+        @extend .d-md-block;	
+        @extend .position-absolute;
+		
+        background-position: center left;
+		
+        background-repeat: no-repeat;
+        height: $maj-header-height;
+        z-index: -99;
+    }
+	
+    .wt-site-title {
+        @extend .maj-header-part;
+
+        order: 2;
+		
+        font-size: 1.5rem;
+        font-weight: bold;
+		
+        margin: 0;
+        padding-bottom: 1.5rem;
+        padding-top: 1.5rem;
+
+        text-align: left;	// Fix for Edge < 79 not supporting start and end values.
+
+        @include media-breakpoint-up(md) {
+            font-size: 1em;
+            font-weight: normal;
+            padding-bottom: unset;
+
+            padding-top: unset;
+            text-align: right;  // Fix for Edge < 79 not supporting start and end values.
+        }		
+    }
+	
+    .wt-header-search {
+        @extend .d-none;
+        @extend .d-md-flex;
+        @extend .maj-header-part;
+		
+        order: 3;
+
+        align-self: flex-end;
+        display: flex;
+        flex-direction: column-reverse;
+
+        padding-bottom: 0.5em;
+        width: max-content;		
+    }
+	
+    .wt-secondary-navigation {
+        @extend .maj-header-part;
+		
+        order: 1;
+		
+        //font-size: 1em;
+        font-weight: bold;
+		
+        .wt-user-menu {
+            flex-direction: row-reverse;
+
+            a {
+                font-weight: normal;
+                @include media-breakpoint-up(md) {
+                    font-weight: unset;
+                }
+            }
+			
+            .menu-mymenu { order: 4; }
+
+            .menu-theme {
+                @extend .d-none;
+                @extend .d-sm-flex;
+
+                order: 3; 
+            }
+            .menu-language { order: 2; }
+            .menu-logout { order: 1; }
+
+            .menu-pending {
+                border: solid 2px $maj-c-theme-lighter;
+                border-radius: 0.7rem;
+                order: 5;
+            }
+			
+        }
+		
+        .nav-link {
+            color: $maj-c-theme-lighter;
+            //mix-blend-mode: difference;
+			
+            &:hover {
+                color: $maj-c-theme-light;
+            }
+        }
+		
+        .dropdown {
+            .dropdown-item {
+                font-weight: normal;
+            }
+        }
+    }
+		
+    .wt-primary-navigation {
+        @include border-top-radius(2rem);
+        
+        order: 4;
+		
+        background-color: $white;
+		
+        .wt-genealogy-menu {
+            @include border-radius(1.75rem);
+            
+            background: $white linear-gradient(to top, rgba($maj-c-theme-medium, 0), rgba($maj-c-theme-medium, 0.6), rgba($maj-c-theme-medium, 1));
+            justify-content: space-evenly;
+            margin-top: $container-padding-x * 0.5;
+            padding-bottom: 1rem;
+            padding-top: 0.5rem;
+
+            .nav-item {
+                flex: 1 1 auto;
+                min-width: 5rem;
+                text-align: center;
+            }
+			
+            .nav-item +	.nav-item {
+                background-image: linear-gradient(to top, $maj-c-theme-lighter, color.adjust($maj-c-theme-medium, $lightness:30%), color.adjust($maj-c-theme-medium, $lightness:70%), $maj-c-theme-medium);
+                background-position: left;
+                background-repeat: no-repeat;
+                background-size: 1px;
+            }
+			
+            .nav-link {
+                &::before {
+                    display: block;
+                }
+            }
+			
+            .dropdown-menu {
+                margin-left: 1rem !important;
+            }
+			
+            .dropdown-item {
+                @include maj-dropdown-left-align($padding-y: 0);
+				
+                &::before {
+                    line-height: 2;
+                    padding: 0 0.25rem;
+                    vertical-align: text-top;
+                }
+            }
+			
+        }
+		
+    }
+}

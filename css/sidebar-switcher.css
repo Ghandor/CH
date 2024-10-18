@@ -1,0 +1,53 @@
+/* Sidebar switcher buttons */
+
+.sidebar-switcher {
+    display: none;
+}
+
+@media screen and (min-width: 40em) {
+
+  .sidebar-switcher {
+      display: block; 
+
+      position: absolute;
+      right: 0;
+      padding: .4em 1em;
+      color: hsl(180, 25%, 80%);
+  }
+
+  .sidebar-switcher button {
+      color: hsl(0, 0%, 40%);
+      padding-left: .4em;
+  }
+
+  .sidebar-switcher button:not([disabled]):hover,
+  .sidebar-switcher button:focus {
+      color: hsl(0, 0%, 20%);
+  }
+
+  /* Switching the sidebar to the left */ 
+  .sidebar-left {
+    order: -1; 
+  }
+  
+  /* Sidebar verstecken */ 
+  .sidebar {
+    overflow: hidden; 
+    
+    transition: padding 0.5s ease, flex 0.5s ease, color 0.2s ease-in 0.3s; 
+  }
+
+  .hide {
+    flex: 0 0 0; 
+    padding: 0; 
+
+    color: hsla(0, 0%, 0%, 0); 
+    transition: color 0.2s ease, flex 0.5s ease 0.3s, padding 0.5s ease 0.3s;
+  }
+  
+  .hide a {
+    color: hsla(0, 0%, 0%, 0); 
+  }
+  
+}
+

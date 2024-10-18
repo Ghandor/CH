@@ -1,0 +1,367 @@
+/**
+ * Rural Theme - Specific pages - Charts
+ *
+ * webtrees-MyArtJaub
+ * Copyright (C) 2015-2024 Jonathan Jaubart
+ * 
+ * Based on webtrees: online genealogy
+ * Copyright (C) 2020 webtrees development team
+ *  
+ * This file is part of webtrees-MyArtJaub
+ *  
+ * webtrees-MyArtJaub is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * webtrees-MyArtJaub is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with webtrees-MyArtJaub. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
+ * Chart-boxes are used to build the various charts.
+ * Each type of chart will set its own size and hide/show content.
+ *
+ * wt-chart-box
+ * +--- wt-chart-box-thumbnail
+ * +--- wt-chart-box-extra
+ *      +--- wt-chart-box-zoom
+ *           +--- wt-chart-box-icon
+ *           +--- wt-chart-box-dropdown wt-chart-box-zoom-dropdown
+ *      +--- wt-chart-box-links
+ *           +--- wt-chart-box-icon
+ *           +--- wt-chart-box-dropdown wt-chart-box-links-dropdown
+ * +--- wt-chart-box-name
+ * +--- wt-chart-box-lifespan
+ * +--- wt-chart-box-facts
+ *     +--- wt-chart-box-fact
+ */
+
+.wt-chart-box {
+    border: dashed var(--sex-u-fg) thin;
+    line-height: 1.1;
+    padding: 2px;
+
+    .dropdown-menu {
+        background: var(--sex-u-bg);
+        border-color: var(--sex-u-fg);
+    }
+	
+    .small {
+        font-size: 90%;
+    }
+	
+    .wt-chart-box-thumbnail {
+        max-height: 7.5rem;
+    }
+
+    .wt-icon-zoom-in .svg-inline--fa,
+    .icon-pedigree {
+        height: 16px;
+    }
+
+    // Specific width & heights
+
+    .wt-chart-ancestors & {
+        height: 8rem;
+        width: 23rem;		
+    }
+
+    .wt-chart-compact & {
+        min-height: 5rem;
+    }
+
+    .wt-chart-family-book & {
+        margin-bottom: 0.4rem;
+        margin-top: 0.4rem;
+        width: 23rem;
+    }
+
+    .wt-chart-pedigree-left & {
+        margin: 0.4rem;
+        margin-right: 0;
+        width: 20rem;
+        
+        @include media-breakpoint-up(xxl) {
+            width: 23rem;
+        }
+    }
+
+    .wt-chart-pedigree-right & {
+        margin: 0.4rem;
+        margin-left: 0;
+        width: 20rem;
+        
+        @include media-breakpoint-up(xxl) {
+            width: 23rem;
+        }
+    }
+
+    .wt-chart-pedigree-up & {
+        margin: 0.4rem;
+        margin-bottom: 0;
+        width: 23rem;
+    }
+
+    .wt-chart-pedigree-down & {
+        margin: 0.4rem;
+        margin-top: 0;
+        width: 23rem;
+    }
+
+    .wt-chart-relationships & {
+        width: 20rem;
+    }
+
+    .wt-chart-hourglass & {
+        width: 19.8rem;
+    }
+    
+    .dropdown-item {
+        @include maj-dropdown-left-align;
+        
+        &.p-1 {
+            @include maj-dropdown-left-align($important: true);
+        }
+    }
+
+    @include maj-chartbox-sex('m');
+    @include maj-chartbox-sex('f');
+    @include maj-chartbox-sex('u', $border-style: dashed);
+    @include maj-chartbox-sex('x');
+}
+
+/*
+ * Pedigree map and Place hierarchy
+ */
+ 
+.wt-map {
+    outline: none;
+}
+
+.leaflet {
+    &-container {
+        font-size: 1rem;
+    }
+    
+    &-popup-content-wrapper {
+        @extend  .maj-font-color-blue;
+    
+        .label {
+            font-weight: bold;
+        }
+    }
+}
+
+// Map wrapper
+
+.wt-pedigree-map-wrapper,
+.wt-place-hierarchy-wrapper {
+    @extend .mx-1;
+}
+
+.wt-place-hierarchy-wrapper {
+    &,
+    ~ .text-center {
+        @extend .my-3;
+    }
+}
+
+// Map sidebar
+
+.wt-map-sidebar {
+    &.wt-page-options-value {
+        border-style: none;
+    }
+    
+    .gchart {
+        @extend .my-1;
+
+        border: dashed 1px $maj-c-theme-dark;
+        color: $maj-c-theme-primary;
+        padding: 3px !important;
+        
+        > div > div > div:first-child {
+            font-weight: bold;
+        }
+    }
+    
+    #place-hierarchy & {
+        .gchart {
+            > .row {
+                @extend .mx-0;
+                
+                > * {
+                    @extend .px-1;
+                }
+                
+                .align-digits {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+/*
+ * Timeline chart
+ */
+
+#timeline_chart {
+    left: 0;
+    position: relative;
+    top: 0;
+    
+    /*
+    Hack for removing leftover elements after removing all individuals.
+    Other themes do not show this behaviour.
+    See https://github.com/jon48/webtrees-theme-rural/issues/56
+    */
+    &:not([style]) {
+        display: none;
+    }
+}
+
+@each $nb, $colors in $maj-c-persons {
+    .person#{$nb} {
+        background-color: map.get($colors, 'background');
+        border: outset map.get($colors, 'border') 1px;
+        border-radius: 3px;
+        margin-right: 0.2rem;
+        vertical-align: top;
+    }
+}
+
+/**
+ * Lifespans
+ */
+
+.wt-lifespans {
+    &-subtitle {
+        text-align: center;
+    }
+
+    &-scale {
+        white-space: nowrap;
+    }
+
+    &-decade {
+        background-image: url($maj-webtrees-dir + '/images/lifespan-decade.png');
+        background-position-y: bottom;
+        background-repeat: no-repeat;
+        background-size: 70px 37px;
+        display: inline-block;
+        height: 60px;
+        width: 70px;
+    }
+
+    &-individuals {
+        background: #fff;
+    }
+
+    &-summary {
+        background: #fff;
+        border: thin solid #000;
+        z-index: 1;
+
+        &-link {
+            font-weight: bold;
+        }
+    }
+}
+
+/*
+ * Family Book
+ */
+
+.wt-chart-family-book {
+    overflow-y: auto;
+
+    &.wt-chart {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/*
+ * Relationship chart
+ */
+.wt-chart-relationships {
+    overflow-y: auto;
+}
+
+.vline-text,
+.hline-text {
+    font-size: unset;
+}
+
+/*
+ * Hourglass chart 
+ */
+
+.wt-chart-hourglass {
+    display: flex;
+    // Cannot use true flex centering, due to problem scrolling left.
+    // Review when safe center is supported more widely
+    //justify-content: center;
+    margin: auto;
+    overflow-y: auto;
+}
+
+/*
+ * Fan chart
+ */
+
+.fan_chart {
+    ul {
+        list-style-type: none;
+        margin: 0;
+    }
+
+    &_menu {
+        background: $maj-c-theme-light;
+        background-clip: padding-box;
+        border: solid 1px $maj-c-theme-medium;
+        border-radius: 0.4rem;
+        display: none;
+        padding: 0.5rem 0;
+        position: absolute;
+        z-index: 100;
+    }
+}
+
+/*
+ * Pedigree chart
+ */
+
+.wt-chart-pedigree {
+    display: flex;
+
+    &-left,
+    &-right,
+    &-up,
+    &-down {
+        // Cannot use true flex centering, due to problem scrolling left.
+        // Review when safe center is supported more widely
+        //justify-content: center;
+        margin: auto;
+    }
+}
+
+/*
+ * Statistics
+ */
+
+.wt-statistics-chart {
+    @extend .maj-content-tabs;
+
+    .card {
+        .list-group-item {
+            background-color: $maj-c-theme-lighter;
+        }
+    }
+}

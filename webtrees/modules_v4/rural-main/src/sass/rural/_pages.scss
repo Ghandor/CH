@@ -1,0 +1,377 @@
+/**
+ * Rural Theme - Specific pages
+ *
+ * webtrees-MyArtJaub
+ * Copyright (C) 2015-2024 Jonathan Jaubart
+ * 
+ * Based on webtrees: online genealogy
+ * Copyright (C) 2020 webtrees development team
+ *  
+ * This file is part of webtrees-MyArtJaub
+ *  
+ * webtrees-MyArtJaub is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * webtrees-MyArtJaub is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with webtrees-MyArtJaub. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+@import 'pages-blocks';
+@import 'pages-charts';
+@import 'pages-colorbox';
+@import 'pages-datatables';
+
+/*
+ * The individual page.
+ *
+ */
+ 
+.wt-route-IndividualPage .wt-main-container > .row {
+    .col-sm-8 {
+        @extend .px-0;
+        
+        @include media-breakpoint-up(sm) {
+            padding-right: calc(var(--bs-gutter-x) * 0.5) !important;
+        }
+    }
+
+    .col-sm-4 {
+        @extend .px-0;
+        
+        @include media-breakpoint-down(sm) {
+            margin-top: 1rem;
+        }
+    }
+}
+
+.img-thumbnail {
+    text-align: center;
+}
+
+.wt-individual-silhouette {
+    &-f {
+        content: url($maj-webtrees-dir + '/images/individual-silhouette-female.png');
+    }
+
+    &-m {
+        content: url($maj-webtrees-dir + '/images/individual-silhouette-male.png');
+    }
+    
+    &-u,
+    &-x {
+        content: url($maj-webtrees-dir + '/images/individual-silhouette-unknown.png');
+    }
+}
+
+.wt-tabs-individual {
+    @extend .maj-content-tabs;
+
+    .field {
+        color: #000;
+    }
+    
+    .wt-places-tab-wrapper {
+        @extend .mx-2;
+        
+        .wt-page-options-value {
+            border-style: none;
+        }
+    }
+}
+
+.label {
+    font-weight: bold;
+}
+
+.starredname {
+    text-decoration: underline;
+}
+
+.parentdeath {
+    border: thin solid #888;
+    padding: 1px;
+}
+
+form.wt-page-content {
+    .small {
+        font-size: 90%;
+    }
+}
+
+.wt-associate-fact,
+.wt-relation-fact,
+.wt-historic-fact {
+    opacity: 0.8;
+}
+
+/*
+ * Family page
+ */
+
+.wt-family-members {
+    .wt-chart-box {
+        width: 25vw;
+    }
+}
+
+/*
+ * Branches
+ */
+
+.wt-branches {
+    .small.person_box {
+        margin-left: 0.3rem;
+    }
+}
+
+.red {
+    color: #f00;
+}
+
+
+/*
+ * Individual and family list
+ *
+ * wt-route-individual-list, wt-route-family-list
+ * +---wt-page-options
+ *     +---wt-initials-list, wt-initials-list-surnames
+ *         +---wt-initial-list-item
+ *             +---wt-initial
+ *             +---wt-initial, active
+ *     +---wt-initials-list, wt-initials-list-given-names
+ *         +---wt-initial-list-item
+ *             +---wt-initial
+ *             +---wt-initial, active
+ * +---wt-page-content
+ *     +---wt-list, wt-{family,individual}-list
+ */
+ 
+.wt-initials-list-item {
+    & + &::before {
+        content: '·';
+    }
+}
+
+.wt-initial { 
+    &.active {
+        color: $maj-c-theme-primary;
+        font-weight: bold;
+        text-decoration: dotted;
+    }
+}
+
+#sidebar {
+    > .card {
+        overflow: visible;
+    }
+
+    .wt-family-navigator-family {
+        table-layout: fixed;
+
+        th {
+            width: 35%;
+        }
+
+        .dropdown-toggle {
+            white-space: normal;
+        }
+    }
+}
+
+/*
+  * Places list
+  */
+
+#place-hierarchy {
+    h4 {
+        @extend .wt-page-title;
+    }
+}
+
+/*
+ * My page edit
+ */
+
+#current-blocks {
+    .wt-block:last-child .wt-block-header {
+        border-bottom-style: none;
+    }
+}
+
+#available-blocks {
+    .wt-block {
+        margin: 0.5rem;
+        
+        .wt-block-header {
+            border-bottom-style: none;
+        }
+    }
+    
+}
+
+
+/*
+ * The search page.
+ */
+
+.wt-search-results {
+    @extend .maj-content-tabs;
+}
+
+.search_hit {
+    background-color: $maj-c-theme-light;
+    border: dotted 1px $maj-c-theme-primary;
+}
+
+/*
+ * Sign in page
+ */
+
+.wt-register-caution {
+    @extend .mx-auto;
+    
+    @include media-breakpoint-up(md) {
+        max-width: map.get($container-max-widths, 'md');
+    }
+}
+
+.hideShowPassword-wrapper {
+    button {
+        @extend .maj-secondary-button-theme-lighter;
+    }
+}
+
+/*
+ * FAQ
+ */
+
+table.faq {    
+    margin: 5px 0 50px 5px;
+    width: 98%;
+
+    tr {
+        background-color: $maj-c-theme-lighter;
+
+        td {
+            border: solid 1px $maj-c-theme-medium;
+        }	
+    }
+	
+    tr:nth-child(odd) {
+        background-color: $maj-c-theme-light;
+    }
+}
+
+div {
+    &.faq_title {
+        background-color: $maj-c-theme-light;
+        font-weight: bold;
+        margin: 1em 0;
+        padding: 0.25em;
+        width: 98%;
+    }
+
+    &.faq_body {
+        clear: both;
+        padding: 0 1em;
+    }
+}
+
+.faq_top {
+    float: right;
+}
+
+
+/*
+ * Stories 
+ */
+
+.wt-tab-stories {
+    color: $maj-c-theme-primary;
+    padding: 1rem;
+}
+
+/* Calendar */
+
+.wt-route-CalendarPage #content {
+    .wt-page-options {
+        padding: 0;
+    }
+
+    .wt-page-options-label {
+        text-align: center;
+    }
+}
+
+.topbottombar {
+    background-color: $maj-c-theme-medium;
+    font-weight: bold;
+}
+
+.current_day {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.cal_day {
+    color: $maj-c-theme-primary;
+    font-weight: bold;
+}
+
+.rtl_cal_day {
+    color: $maj-c-greenolive;
+}
+
+
+/* Clippings */
+#sb_clippings_content {
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+    }
+}
+
+/* Census assistant */
+.wt-census-assistant-form-control:focus {
+    min-width: 12rem;
+}
+
+/* Pending changes */
+
+.wt-new {
+    outline: solid 2px $maj-c-theme-primary;
+}
+
+.wt-old {
+    outline: solid 2px #f00;
+}
+
+/*
+ * Miscellaneous
+ */
+
+.text-muted, .text-body-secondary {
+    color: $maj-c-bluegray !important;
+
+    &.nav-link {
+        @include maj-font-color($maj-c-theme-primary !important, $maj-c-theme-medium !important);
+    }
+}
+
+
+.odometer {
+    @extend .badge;
+    @extend .bg-secondary;
+}

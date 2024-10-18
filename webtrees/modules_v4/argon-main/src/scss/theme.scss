@@ -1,0 +1,1191 @@
+$custom-colors: ("default": #172b4d);
+
+$table-cell-padding-y: 1rem;
+$table-cell-padding-x: 1rem;
+$table-cell-padding-y-sm: 0.75rem;
+$table-cell-padding-x-sm: 0.75rem;
+
+$dropdown-border-color: #dee2e6;
+$box-shadow-xs: 0 1px 3px rgba(50, 50, 93, .15), 0 1px 0 rgba(0, 0, 0, .02);
+
+// Common formatting for all themes
+@import "_base.css";
+
+// Argon
+@import "@fortawesome/fontawesome-free/css/all";
+@import "argon-dashboard/assets/scss/argon-dashboard";
+
+// Component customization
+@import "forms";
+@import "tables";
+@import "icons";
+
+:root {
+  --chart-line-radius: #{$border-radius-sm};
+  --chart-line: solid #{$border-color} #{$border-width};
+  --link-color-hover: #f00;
+  --link-color: #555;
+  --link-decoration-hover: none;
+  --link-decoration: none;
+  --sex-f-bg: #fff4f9;
+  --sex-f-fg: var(--bs-body-color);
+  --sex-m-bg: #f4fdff;
+  --sex-m-fg: var(--bs-body-color);
+  --sex-u-bg: #fff;
+  --sex-u-fg: var(--bs-body-color);
+  --sex-x-bg: #fceaa1;
+  --sex-x-fg: var(--bs-body-color);
+}
+
+/**
+ * Bootstrap
+ */
+
+.markdown p {
+  white-space: pre-wrap;
+}
+
+caption {
+  caption-side: top;
+  padding-top: 0;
+}
+
+// Make card header gray
+.card {
+  .card-header {
+    background-color: rgba($black, .05);
+    border-bottom: none;
+    font-weight: $font-weight-bolder;
+
+    &[id^=name-header-] {
+      font-size: $font-size-lg;
+    }
+
+    &#name-header-add {
+      font-size: $font-size-base;
+      font-weight: $font-weight-normal;
+    }
+  }
+
+  .card-header:first-child:last-child {
+    border-radius: $card-border-radius;
+  }
+}
+
+// Make accordions like cards
+.accordion-item {
+  @extend .card;
+  border-radius: 0;
+
+  .accordion-button,
+  .accordion-button:first-child,
+  .accordion-button:first-child:last-child {
+    @extend .card-header;
+    border-radius: 0;
+    padding: $accordion-button-padding-y $accordion-button-padding-x;
+  }
+}
+
+.accordion-item:first-of-type {
+  border-radius: $card-border-radius $card-border-radius 0 0;
+
+  .accordion-button,
+  .accordion-button:first-child {
+    border-radius: $card-border-radius $card-border-radius 0 0;
+  }
+}
+
+.accordion-item:last-of-type {
+  border-radius: 0 0 $card-border-radius $card-border-radius;
+
+  .accordion-button.collapsed {
+    border-radius: 0 0 $card-border-radius $card-border-radius;
+  }
+}
+
+.nav-pills {
+  // Because spacing not set in HTML
+  @extend .p-1;
+
+  .nav-link {
+    // Because spacing not set in HTML
+    @extend .mb-0, .px-3, .py-1;
+  }
+
+  .nav-link.active {
+    background-color: $white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.dropdown .dropdown-menu {
+  // Remove pointer from menu (should only be for individual dropdown items
+  cursor: auto;
+
+  display: none;
+  overflow: visible;
+
+  &.show {
+    animation: $dropdown-animation-show;
+    display: block;
+  }
+
+  .dropdown-item.active {
+    background-color: map-get($theme-colors, "primary");
+    color: map-get($theme-colors, "white");
+  }
+}
+
+// Transform properties in Argon's animation causes an issue with popper
+.dropdown.position-static .dropdown-menu.show {
+  animation: none;
+  margin-top: 0 !important;
+}
+
+.modal {
+  z-index: 1052;
+}
+
+.list-group {
+  a.list-group-item {
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+    font-size: $font-size-sm;
+  }
+}
+
+.tab-content {
+  padding-top: 0.5rem;
+}
+
+.d-flex.justify-content-between {
+  align-items: center;
+}
+
+ul.pagination {
+  margin-bottom: $form-label-margin-bottom !important;
+}
+
+// Hack for pagination arrows
+.paginate_button.previous,
+.paginate_button.next {
+  a {
+    visibility: hidden;
+
+    &::after {
+      @extend .page-link;
+      border-radius: 50%;
+      color: $gray-600;
+      display: block;
+      font-weight: bold;
+      height: 36px;
+      padding-right: 0;
+      padding-left: 0;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      visibility: visible;
+      width: 36px;
+    }
+  }
+}
+
+.paginate_button.previous a::after {
+  content: "\2039";
+}
+
+.paginate_button.next a::after {
+  content: "\203A";
+}
+
+.paginate_button.disabled a.page-link {
+  color: $gray-400;
+
+  &::after {
+    color: $gray-400;
+  }
+}
+
+/**
+ * Webtrees
+ */
+
+.wt-sex-m,
+.wt-chart-box-m,
+.tvM {
+  background-color: var(--sex-m-bg) !important;
+  color: var(--sex-m-fg) !important;
+}
+
+.wt-sex-f,
+.wt-chart-box-f,
+.tvF {
+  background-color: var(--sex-f-bg) !important;
+  color: var(--sex-f-fg) !important;
+}
+
+.wt-sex-u,
+.wt-chart-box-u,
+.tvU {
+  background-color: var(--sex-u-bg) !important;
+  color: var(--sex-u-fg) !important;
+}
+
+.wt-new {
+  box-shadow: 0 0 0 2px $teal;
+}
+
+.wt-old {
+  box-shadow: 0 0 0 2px $orange;
+}
+
+.wt-site-logo {
+  display: none;
+}
+
+// Keyboard
+.wt-osk {
+  box-shadow: $box-shadow;
+  display: none;
+  position: fixed;
+}
+
+.indent {
+  padding-left: 1rem;
+}
+
+#secondary-header {
+  background-color: map-get($custom-colors, "default");
+  background-image: linear-gradient(310deg,#141727,#3a416f);
+  color: map-get($theme-colors, "white");
+  @include font-size($font-size-sm);
+  padding: 0.313rem 0;
+
+  ul.wt-user-menu {
+    margin: 0 2.5rem 0 0;
+
+    &>li {
+      &>a {
+        color: map-get($theme-colors, "white");
+        display: inline-block;
+        padding: 0.625rem 1.25rem;
+
+        &:hover {
+          color: darken(map-get($theme-colors, "white"), 20%);
+        }
+      }
+
+      &.menu-pending {
+        a {
+          color: map-get($theme-colors, "warning");
+
+          &:hover {
+            color: darken(map-get($theme-colors, "warning"), 20%);
+          }
+        }
+      }
+    }
+  }
+
+  .wt-header-search {
+    .wt-header-search-field {
+      height: auto;
+    }
+
+    .wt-header-search-button {
+      padding: 0.625rem 0.75rem;
+    }
+  }
+}
+
+#primary-header {
+  background-color: map-get($custom-colors, "default");
+  background-image: linear-gradient(310deg,#141727,#3a416f);
+  box-shadow: 0 10px 20px rgba(50, 50, 93, .2);
+  left: 0;
+  padding: 1.25rem 0;
+  right: 0;
+  top: 0;
+  z-index: 1052;
+
+  .wt-header-content {
+    align-items: center;
+
+    .wt-site-title {
+      color: map-get($theme-colors, "white");
+      flex-basis: content;
+      font-size: 2rem;
+      margin-bottom: 0;
+
+      a {
+        color: map-get($theme-colors, "white");
+        transition: $nav-link-transition;
+
+        &:hover {
+          color: darken(map-get($theme-colors, "white"), 20%);
+        }
+      }
+    }
+
+    .wt-primary-navigation {
+      flex-basis: content;
+      flex-grow: 1;
+
+      ul.wt-genealogy-menu {
+        justify-content: flex-end;
+
+        &>li {
+          &>a {
+            color: map-get($theme-colors, "white");
+            padding: 0.75rem;
+
+            &:hover {
+              color: darken(map-get($theme-colors, "white"), 20%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.wt-main-container {
+  margin-top: 3rem;
+}
+
+.wt-page-content {
+  margin-bottom: 2rem;
+}
+
+#site-footer {
+  background-color: $gray-100;
+  font-size: $font-size-sm;
+  padding: 2.5rem 0;
+  text-align: center;
+}
+
+// Calendar modals for editing dates
+div[id^=caldiv] {
+  border-radius: $dropdown-border-radius;
+  box-shadow: $dropdown-box-shadow;
+  padding: 1.25rem 1.375rem;
+
+  table {
+    border: none !important;
+  }
+
+  td,
+  tbody td {
+    border-bottom: none;
+  }
+
+  input,
+  select {
+    @extend .form-control-sm;
+  }
+
+  tr:first-child td {
+    border-top: none;
+  }
+
+  table table {
+    margin-top: 0.5rem;
+
+    td {
+      font-size: .875rem;
+      height: 36px;
+      text-align: center;
+    }
+
+    // Calendar days
+    tr:not(:first-child) {
+      td {
+        background-color: transparent !important;
+        border: none !important;
+        border-radius: 50%;
+        padding: 3px;
+        transition: all .15s ease;
+        width: 36px;
+
+        a {
+          color: $gray-500;
+        }
+
+        &.descriptionbox {
+          background-color: map-get($theme-colors, "primary") !important;
+
+          a {
+            color: map-get($theme-colors, "white");
+          }
+        }
+      }
+    }
+
+    tr:first-child td,
+    tr:not(:first-child) td.optionbox {
+      color: $body-color;
+
+      a {
+        color: $body-color;
+      }
+    }
+  }
+}
+
+/**
+ * Maps (Pedigree Page, Place Hierarchy Page, Place Hierarhy Tab)
+ */
+
+.wt-places-tab-wrapper,
+.wt-pedigree-map-wrapper,
+.wt-place-hierarchy-wrapper {
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-sm;
+}
+
+.wt-places-tab-sidebar,
+.wt-pedigree-map-sidebar,
+.wt-place-hierarchy-sidebar {
+  background-color: map-get($theme-colors, "white");
+  padding: 0;
+
+  li.gchart {
+    border-bottom: $border-width solid $border-color;
+    font-size: $font-size-sm !important;
+    padding: 1.5rem;
+    transition: background-color $dropdown-transition-time;
+
+    .tab-pane & {
+      font-size: $font-size-xs !important;
+      padding: 1rem;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    // Currently selected
+    &.messagebox {
+      background-color: $gray-100;
+    }
+
+    >div {
+      margin-bottom: 0.625rem;
+    }
+  }
+}
+
+.wt-places-tab-sidebar,
+.wt-place-hierarchy-sidebar {
+  li.gchart:hover {
+    background-color: $gray-100;
+    cursor: pointer;
+  }
+}
+
+// OSM options
+.leaflet-control-layers {
+  .leaflet-layerstree-header-label {
+    margin: 0;
+  }
+
+}
+
+// Pin details
+.leaflet-popup {
+  font-family: $font-family-base;
+
+  a {
+    color: $link-color;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: $border-radius;
+    padding: 0.75rem 1rem;
+
+    .leaflet-popup-content {
+      margin: 0;
+
+      .table {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.marker-cluster {
+  div {
+    font-family: $font-family-base;
+  }
+}
+
+/**
+ * Individual Page
+ */
+
+// Names
+#individual-names {
+  .label {
+    font-weight: $font-weight-normal;
+    margin-bottom: 0;
+  }
+}
+
+// Preferred name
+.starredname {
+  text-decoration: underline;
+}
+
+// Families tab
+.wt-chart-box-dropdown {
+  div[class^=fact_] {
+    padding: $dropdown-item-padding-y $dropdown-item-padding-x; /* Add padding */
+  }
+}
+
+// Interactive Tree tab
+.tv_out {
+  background-color: map-get($theme-colors, "white");
+  border: none;
+}
+
+// Only the tab, not the chart
+#tvTab_out {
+  background-color: map-get($theme-colors, "white");
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-sm;
+}
+
+#tvStylesSubmenu,
+#tv_tools {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+#tvStylesSubmenu {
+  [dir=ltr] {
+    left: 0;
+  }
+
+  [dir=rtl] {
+    right: 0;
+  }
+}
+
+#tv_tools {
+  ul {
+    li.tv_button {
+      border: none;
+
+      [dir=ltr] & {
+        float: left;
+      }
+
+      [dir=rtl] & {
+        float: right;
+      }
+
+      [dir] & {
+        float: none;
+      }
+
+      &:hover {
+        border: none;
+      }
+    }
+  }
+
+  #tvbCompact {
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+#tvToolsHandler {
+  [dir=ltr] & {
+    float: left;
+  }
+
+  [dir=rtl] {
+    float: right;
+  }
+}
+
+table#tv_tree {
+  div.tv_hline,
+  div.tv_vline {
+    background-color: $table-border-color;
+  }
+
+  .tv_box {
+    background: map-get($theme-colors, "white");
+    border: none;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow-xs;
+    font-size: $font-size-xs;
+    margin-bottom: 0.625rem;
+    width: 11.25rem;
+
+    > div {
+      padding: 0.25rem 0.5rem !important;
+    }
+
+    .dashed {
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+
+    img {
+      [dir=ltr] & {
+        float: left;
+        margin-right: 0.625rem;
+      }
+
+      [dir=rtl] & {
+        float: right;
+        margin-left: 0.625rem;
+      }
+    }
+
+    .icon-silhouette-f,
+    .icon-silhouette-m,
+    .icon-silhouette-u {
+      [dir=ltr] & {
+        float: left;
+        margin-right: 0.5rem;
+      }
+
+      [dir=rtl] & {
+        float: right;
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}
+
+// Stories tab
+.story:not(:last-child) {
+  border-bottom: 1px solid $border-color;
+}
+
+// Album tab
+.wt-tab-album .figure-caption {
+  font-size: $font-size-xs;
+}
+
+// Descendants sidebar
+#sb_desc_content {
+  font-size: $font-size-sm;
+
+  ul {
+    padding-left: 0;
+
+    ul {
+      padding-left: 1rem;
+    }
+
+    .sb_desc_indi_li {
+      list-style-type: none;
+    }
+  }
+}
+
+// Extra Information sidebar
+#sidebar-content-extra_info {
+  font-size: $font-size-sm;
+
+  .wt-fact-edit-links {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/**
+ * User Page
+ */
+
+.wt-block-content-user_messages {
+  .table-responsive {
+    margin-bottom: 2rem;
+  }
+
+  // Center header of checkbox column
+  .wt-page-options-label:first-child {
+    text-align: center;
+  }
+
+  .center {
+    left: auto;
+    text-align: center;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  // Message cells
+  .wt-page-options-value[colspan] {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+/**
+ * Charts
+ */
+
+.wt-chart {
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+// For charts with potential overflow
+.wt-chart-interactive,
+.wt-chart-pedigree {
+  background-color: map-get($theme-colors, "white");
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-sm;
+}
+
+// Also includes blocks and Family page (since they utilize many of the same components but lack a chart wrapper class)
+.wt-chart,
+.wt-family-members,
+.wt-block-charts,
+.wt-block-gedcom_favorites {
+  td {
+    border-bottom: none;
+  }
+
+  tr:first-child td {
+    border-top: none;
+  }
+
+  .wt-chart-box {
+    background: map-get($theme-colors, "white");
+    border-radius: $border-radius;
+    box-shadow: $box-shadow-xs;
+    font-size: $font-size-xs;
+    margin-bottom: 0.125rem;
+    margin-top: 0.125rem;
+    padding: 0.5rem 0.625rem;
+  }
+
+  .wt-chart-box-zoom-dropdown {
+    line-height: $line-height-sm;
+  }
+}
+
+// Compact Tree
+.wt-chart-compact {
+  table {
+    border-collapse: separate;
+  }
+
+  .wt-chart-box {
+    height: 5rem;
+    width: 9.375rem;
+  }
+}
+
+// Ancestors and Descendants charts
+.wt-chart-ancestors,
+.wt-chart-descendants {
+  .wt-chart-box {
+    font-size: $font-size-sm;
+    margin-bottom: 0.313rem;
+    margin-top: 0.313rem;
+    min-height: 5rem;
+  }
+
+  .wt-sosa-number,
+  .wt-daboville-number {
+    border: $border-width dotted $border-color;
+    font-size: $font-size-sm;
+    margin: 0 0.625rem;
+    padding: 0.313rem 0.625rem;
+  }
+}
+
+// Fan chart
+.fan_chart_menu {
+  @extend .dropdown-menu;
+}
+
+// Hourglass chart
+.wt-chart-hourglass {
+  overflow-y: auto;
+
+  .wt-chart-box {
+    margin-top: 0.625rem;
+    margin-bottom: 0.625rem;
+  }
+}
+
+// Lifespans chart
+.wt-timeline-chart {
+  .wt-lifespans-scale {
+    white-space: nowrap;
+  }
+
+  // Timeline markers
+  .wt-lifespans-decade {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAAlBAMAAAANYIJDAAAAGHRFWHRTb2Z0d2FyZQBwYWludC5uZXQgNC4wLjVlhTJlAAAACXBIWXMAAA7CAAAOwgEVKEqAAAAAD1BMVEUAAAAAAABHcEw2NjYAAADzBAk1AAAABHRSTlPT1wDTEG7QNgAAAElJREFUOMtjEFIiBBQYBlQNI03VAEWVUSgFIGWIoBgQojgpBgwDUM1hJMscit2jgM9ZVHOPC2Ew6NTQM3yGaPqhZx4kXc3AllEANjazI4q82bEAAAAASUVORK5CYII=");
+    background-position-y: bottom;
+    background-repeat: no-repeat;
+    background-size: 70px 37px;
+    display: inline-block;
+    height: 3.75rem;
+    width: 4.375rem;
+  }
+
+  // Lifespans
+  .wt-lifespans-individual {
+    border-radius: $border-radius;
+    box-shadow: $box-shadow-xs;
+    font-size: $font-size-sm;
+    margin-top: 1rem;
+    padding: 0.313rem 0.625rem;
+  }
+
+  // Popup
+  .wt-lifespans-summary {
+    background-color: #fff;
+    border-radius: $dropdown-border-radius;
+    box-shadow: $dropdown-box-shadow;
+    font-size: $font-size-sm;
+    padding: 0.625rem 1rem;
+    z-index: 1;
+  }
+}
+
+// Pedigree chart
+.wt-chart-pedigree {
+  overflow-y: auto;
+
+  .wt-chart-pedigree-left,
+  .wt-chart-pedigree-right {
+    .wt-chart-box {
+      margin-bottom: 1.5rem;
+      min-height: 5rem;
+    }
+  }
+
+  .wt-chart-pedigree-right {
+    .wt-chart-box {
+      margin-right: 1.5rem;
+    }
+  }
+
+  .wt-chart-pedigree-left {
+    .wt-chart-box {
+      margin-left: 1.5rem;
+    }
+  }
+
+  .wt-chart-pedigree-down,
+  .wt-chart-pedigree-up {
+    .wt-chart-box {
+      margin-right: 1.5rem;
+      min-width: 10rem;
+    }
+  }
+
+  .wt-chart-pedigree-down {
+    .wt-chart-box {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .wt-chart-pedigree-up {
+    .wt-chart-box {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+// Relationships chart
+.wt-chart-relationships {
+  .wt-chart-box {
+    height: 5rem;
+  }
+}
+
+// Timeline chart
+.wt-route-TimelineChartModule {
+  // Person panels
+  div[class*=person] {
+    font-size: $font-size-sm;
+    padding: 0.625rem 1rem;
+  }
+
+  .person0 {
+    background-color: map-get($theme-colors, "primary");
+    color: map-get($theme-colors, "white");
+
+    a {
+      color: map-get($theme-colors, "white");
+
+      &:hover {
+        color: darken(map-get($theme-colors, "white"), 20%);
+      }
+    }
+  }
+
+  .person1 {
+    background-color: map-get($theme-colors, "secondary");
+    color: map-get($theme-colors, "white");
+
+    a {
+      color: map-get($theme-colors, "white");
+
+      &:hover {
+        color: darken(map-get($theme-colors, "white"), 20%);
+      }
+    }
+  }
+
+  .person2 {
+    background-color: map-get($theme-colors, "info");
+    color: map-get($theme-colors, "white");
+
+    a {
+      color: map-get($theme-colors, "white");
+
+      &:hover {
+        color: darken(map-get($theme-colors, "white"), 20%);
+      }
+    }
+  }
+
+  .person3 {
+    background-color: map-get($theme-colors, "success");
+    color: map-get($theme-colors, "white");
+
+    a {
+      color: map-get($theme-colors, "white");
+
+      &:hover {
+        color: darken(map-get($theme-colors, "white"), 20%);
+      }
+    }
+  }
+
+  .person4 {
+    background-color: map-get($theme-colors, "danger");
+    color: map-get($theme-colors, "white");
+
+    a {
+      color: map-get($theme-colors, "white");
+
+      &:hover {
+        color: darken(map-get($theme-colors, "white"), 20%);
+      }
+    }
+  }
+
+  .person5 {
+    background-color: map-get($theme-colors, "warning");
+    color: map-get($theme-colors, "white");
+
+    a {
+      color: map-get($theme-colors, "white");
+
+      &:hover {
+        color: darken(map-get($theme-colors, "white"), 20%);
+      }
+    }
+  }
+}
+
+.wt-timeline-chart {
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  #timeline_chart {
+    position: relative;
+    top: 0;
+
+    [dir=ltr] & {
+      left: 0;
+    }
+
+    [dir=rtl] & {
+      right: 0;
+    }
+
+    td[class^=person] {
+      font-size: $font-size-xs;
+      padding: 0 0.5rem;
+    }
+  }
+}
+
+/**
+ * Lists
+ */
+
+// Families and Individuals lists
+.wt-initials-list {
+  font-size: $font-size-base;
+
+  .wt-initial.active {
+    color: map-get($theme-colors, "primary");
+    cursor: default;
+  }
+}
+
+/**
+ * Calendar
+ */
+
+.wt-route-CalendarPage {
+
+  // Weekday labels
+  .wt-page-options-label {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+
+  // Event list
+  .wt-page-options-value>ul {
+    margin-bottom: 0;
+
+    li:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+/**
+ * FAQ
+ */
+
+.faq {
+  border-top: $border-width solid $border-color;
+  margin-bottom: $hr-margin-y;
+  padding-top: $hr-margin-y;
+
+  *:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq_title {
+    align-items: center;
+    display: flex;
+
+    // Fixed header offset
+    margin-top: -9.5rem;
+
+    // Fixed header offset
+    padding-top: 9.5rem;
+
+    h3 {
+      flex-grow: 1;
+    }
+
+    .faq_top {
+      flex-basis: content;
+      font-size: $font-size-base;
+      font-weight: normal;
+    }
+  }
+
+  .faq_body {
+    margin-bottom: $hr-margin-y;
+  }
+}
+
+
+/**
+ * ColorBox
+ */
+
+#cboxContent {
+  border: none;
+  border-radius: $popover-border-radius;
+  box-shadow: $popover-box-shadow;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+[dir] #cboxError {
+  border: $border-radius solid $border-color;
+  padding: 3.125rem;
+}
+
+#cboxTitle {
+  font-size: $font-size-sm;
+  margin: 0;
+  padding: 0.25rem 0;
+  width: 100%;
+}
+
+#cboxClose,
+#cboxNext,
+#cboxPrevious,
+#cboxSlideshow {
+  @extend .btn;
+  @extend .btn-primary !optional;
+  @extend .btn-sm;
+  padding: $btn-padding-y-xs $btn-padding-x-xs;
+
+  &:not(:last-child) {
+    margin-right: 0;
+  }
+}
+
+#cboxPrevious {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#cboxNext {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+#cboxSlideshow {
+  [dir=ltr] & {
+    right: 1rem;
+  }
+
+  [dir=rtl] & {
+    left: 1rem;
+  }
+}
+
+#cboxPrevious {
+  [dir=ltr] & {
+    left: 1rem;
+  }
+
+  [dir=rtl] & {
+    right: 1rem;
+  }
+}
+
+#cboxNext {
+  [dir=ltr] & {
+    left: 3.7rem;
+  }
+
+  [dir=rtl] & {
+    right: 3.7rem;
+  }
+}
+
+#cboxClose {
+  top: 1rem;
+
+  [dir=ltr] & {
+    right: 1rem;
+  }
+
+  [dir=rtl] & {
+    left: 1rem;
+  }
+}

@@ -1,0 +1,20 @@
+/*--------------------------------------------------------------
+Header styles minus menu
+--------------------------------------------------------------*/
+
+.pagehead {
+    background:rgba(2, 46, 121, 1);
+}
+
+.site-title {
+            background-image: url("../img/banner.jpg");
+			background-size: cover;
+            background-repeat:no-repeat;
+            background-position: left left;
+            
+}
+.site-title img{
+    margin: 0 auto;
+    padding: 0 auto;
+}
+

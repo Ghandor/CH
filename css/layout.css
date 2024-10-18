@@ -1,0 +1,60 @@
+/*--------------------------------------------------------------
+Layouts
+--------------------------------------------------------------*/
+
+.outer-wrap {
+    display: flex;
+    flex-direction: column; 
+    min-height: 100vh; 
+  }
+.content {
+    display: flex; 
+    flex: 1 1 auto; 
+  }
+
+.main-area {
+    flex: 1 1 auto;
+    padding: 5px;    
+    background-color: rgba(238, 238, 238, 1.0);
+  }
+  
+ .post-content {
+    margin: 10px; 
+  }
+  
+.sidebar {
+    flex: 0 0 12em;
+    padding: .5em 1.4em 1em;
+	background: hsl(0, 0%, 90%);
+  }
+.footer-area {
+	padding: .4em 1em;
+	text-align: left;
+	background: hsl(0, 0%, 75%);
+}
+
+figure {
+  margin: 0;
+}
+
+img {
+  display: block;
+  border: 0;
+  max-width: 100%;
+  height: auto;
+}
+
+@media screen and (max-width: 800px) {
+ 
+.post-content {
+	padding: 0 1.4em 1.4em;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sidebar {
+    display: none;	
+    border: 3px solid red;
+}
+  
+}

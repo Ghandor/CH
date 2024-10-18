@@ -1,0 +1,326 @@
+/**
+ * Rural Theme - Page main content
+ *
+ * webtrees-MyArtJaub
+ * Copyright (C) 2015-2024 Jonathan Jaubart
+ * 
+ * Based on webtrees: online genealogy
+ * Copyright (C) 2020 webtrees development team
+ *  
+ * This file is part of webtrees-MyArtJaub
+ *  
+ * webtrees-MyArtJaub is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * webtrees-MyArtJaub is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with webtrees-MyArtJaub. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/*
+ * Pages main have the following high-level structure:
+ *
+ * wt-main-wrapper
+ * +---wt-main-container
+ *     +---wt-main-content
+ *         +---wt-messages
+ *         +---wt-page-title
+ *         +---wt-page-options wt-page-options-xxxxx
+ *         +---wt-page-content
+ */
+
+main {
+    flex: unset;
+    
+    .wt-main-container {
+        @extend .table-responsive;
+        @include maj-base-layout-col;
+		
+        background-color: $white;
+        overflow-x: visible;
+
+        /* Space between the header/footer and the main content. */
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+
+        > .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        > p {
+            text-align: center;
+        }
+    }
+	
+    .wt-page-title,
+    .wt-main-container > h2 {
+        color: $secondary;
+        font-size: 2em;
+        font-weight: normal;
+        text-align: center;
+    }
+	
+    /* Page options tables */
+	
+    .wt-page-options {
+        @extend .container;
+		
+        @include media-breakpoint-up(md) {
+            max-width: map.get($container-max-widths, 'md');
+        }
+		
+        &.w-100 {
+            max-width: 100%;
+        }
+		
+        &.wt-page-options-media-list {
+            max-width: 100%;
+        }
+				
+        //border-style: outset;
+        //border-color: $maj-c-theme-dark;
+        //border-width: 0 1px 1px 0;
+		
+        p:not(.small) {
+            text-align: center;
+        }
+		
+        .btn-secondary {
+            @extend .maj-secondary-button-theme-lighter;
+        }
+		
+        &-label {
+            background-color: $maj-c-theme-medium;
+            border-style: none;
+            color: $maj-c-theme-darker;
+            font-weight: bold;
+        }
+
+        &-value {
+            background-color: $maj-c-theme-light;
+            border-top: 1px solid $maj-c-theme-medium;
+            padding: 0.5rem 0.75rem;
+        }
+        
+        .text-muted, .text-body-secondary {
+            color: $maj-c-theme-darker !important;
+        }
+		
+    }
+	
+    /**
+	 * Page content
+	 */
+	
+    .wt-page-content {
+        margin-top: 1rem;
+    }
+}
+
+/* Forms */
+.col-form-label {
+    font-weight: bold;
+    text-align: center;
+}
+
+
+form.wt-page-content {
+    @extend .container;
+
+    > .row {
+
+        background-color: $maj-c-theme-light;
+	
+        .col-form-label {
+            background-color: $maj-c-theme-medium;
+            color: $maj-c-theme-primary;
+        }
+
+        > div {
+            padding: $input-padding-y $input-padding-x;
+        }
+    }
+
+    > .card {
+        @extend .row;
+    }
+}
+
+/* Tabs */
+
+.nav-tabs {
+    .nav-link {
+        background-color: $maj-c-theme-medium;
+        margin-right: 0.3em;
+		
+        &.active {
+            background-color: $maj-c-theme-lighter;
+            font-weight: bold;
+        }
+
+        &.text-muted, &.text-body-secondary {
+            display: none;
+
+            .wt-tabs-individual & {
+                display: list-item;
+                opacity: 0.45;
+            }
+        }
+    }
+	
+}
+
+.tab-content {
+    background-color: $maj-c-theme-lighter;
+    border: solid 1px $maj-c-theme-medium;
+    border-top-style: none;
+    padding: 1em;
+
+    .dataTables_wrapper {
+        border-style: none;
+    }
+
+    &.mt-4 {
+        margin-top: unset !important;
+    }
+
+    .wt-tabs-individual & {
+        padding: 0;
+    }
+}
+
+.tab-pane {
+    @extend .table-responsive;
+}
+
+/**
+ * Lists
+ */
+.list_table {
+    @include maj-font-color($primary, $maj-c-theme-dark);
+
+    margin-left: auto;
+    margin-right: auto;
+
+    &.table {
+        width: unset;
+    }}
+
+.list_label,
+.list_label_wrap {
+    @include maj-font-color($primary, $maj-c-theme-dark);
+
+    background-color: $maj-c-theme-medium;
+    font-weight: bold;
+    text-align: center;}
+
+.list_value,
+.list_value_wrap {
+    @include maj-font-color($primary, $maj-c-theme-dark);
+    
+    background-color: $maj-c-theme-light;}
+
+.list_label,
+.list_value {
+    white-space: nowrap;
+}
+
+.list_label_wrap,
+.list_value_wrap {
+    white-space: normal;
+}
+
+/**
+ * Facts table
+ */
+.wt-facts-table {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    
+    caption {
+        caption-side: top;
+    }
+	
+    th {
+        background-color: $maj-c-theme-medium;
+        border-style: none;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    tbody > tr > th {
+        width: 20%;
+    }
+	
+    td {
+        background-color: $maj-c-theme-light;
+        border-style: none;
+    }
+    
+    .wt-sex-f td {
+        background-color: var(--sex-f-bg);
+        border-color: var(--sex-f-fg);
+    }
+	
+    .wt-sex-m td {
+        background-color: var(--sex-m-bg);
+        border-color: var(--sex-m-fg);
+    }
+    
+    .wt-sex-u td {
+        background-color: var(--sex-u-bg);
+        border-color: var(--sex-u-fg);
+    }
+    
+    .wt-sex-x td {
+        background-color: var(--sex-x-bg);
+        border-color: var(--sex-x-fg);
+    }
+
+    .btn-light {
+        @extend .btn-primary;
+    }
+    
+    table {
+        td {
+            border-bottom: thin dashed $maj-c-theme-medium;
+            border-right: thin dashed $maj-c-theme-medium;
+            
+            &:last-child {
+                border-right-style: none;
+            }
+        }
+        
+        tr:last-child td {
+            border-bottom-style: none;
+        }
+    }
+}
+
+/*
+ * Tag cloud
+ */
+
+.wt-surnames-tag-cloud {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 5px;
+    width: 70%;
+}
+
+/*
+ * Markdown
+ */
+ 
+.markdown {
+    td,
+    th {
+        border-color: $maj-c-theme-medium;
+        border-style: solid;
+    }
+}

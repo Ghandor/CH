@@ -1,0 +1,109 @@
+/**
+ * Rural Theme - Specific pages - Datatables
+ *
+ * webtrees-MyArtJaub
+ * Copyright (C) 2015-2024 Jonathan Jaubart
+ * 
+ * Based on webtrees: online genealogy
+ * Copyright (C) 2020 webtrees development team
+ *  
+ * This file is part of webtrees-MyArtJaub
+ *  
+ * webtrees-MyArtJaub is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * webtrees-MyArtJaub is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with webtrees-MyArtJaub. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+table.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.dataTables_wrapper {
+    @extend .table-responsive;
+    @extend .maj-content-tabs;
+    @extend .mx-auto;
+	
+    @include media-breakpoint-up(md) {
+        max-width: 75%;
+    }
+	
+    .dataTables_info,
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_paginate {
+        padding: 0.4em;
+    }
+}
+
+.indi-list,
+.fam-list,
+.wt-block,
+.wt-chart-descendants,
+#place-hierarchy,
+div[role=tabpanel],
+div[id^=table-indi],
+div[id^=table-fam],
+.maj-table-full-width {
+    .dataTables_wrapper {
+        max-width: 100%;
+    }
+}
+
+
+
+table.dataTable {
+    @extend .table-striped;
+    //@extend .mx-auto;
+    //@extend .w-auto;
+		
+    border-spacing: 2px;
+		
+    thead,
+    tfoot {
+        tr {
+            th {
+                background-image: $maj-bg-theme-medium-background-image;
+            }
+			
+            th:only-child:not(.maj-th-background) {
+                background-image: none;
+            }
+        }
+    }
+	
+    &.table-bordered {
+        thead,
+        tfoot {
+            tr {
+                th {
+                    border-color: $maj-c-theme-medium !important;
+                    border-width: $border-width;
+                }
+				
+                th:only-child:not(.maj-th-background) {
+                    border-style: none;
+                }
+            }
+        }
+    }
+    
+    a.text-muted, a.text-body-secondary {
+        color: $maj-c-theme-dark !important;
+        
+        &:hover {
+            color: $maj-c-theme-medium !important;
+        }
+    }
+}
+
+.table-given-name {
+    overflow-x: hidden;
+}
